@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <script src="https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js"></script>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ====== PAGE ====== */
+        .page {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--color-primary, #0a1628);
+        }
+
+        .page-inner {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            min-height: 100vh;
+        }
+
+        /* ====== BACKGROUND IMAGE ====== */
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .bg-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(2px);
+            transform: scale(1.03);
+        }
+
+        .bg-overlay-left {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right,
+                    var(--color-primary, #0a1628) 0%,
+                    rgba(10, 22, 40, 0.85) 25%,
+                    rgba(10, 22, 40, 0.5) 55%,
+                    transparent 100%);
+            z-index: 1;
+        }
+
+        .bg-overlay-tb {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.35) 0%,
+                    transparent 25%,
+                    transparent 75%,
+                    rgba(0, 0, 0, 0.35) 100%);
+            z-index: 2;
+        }
+
+        /* ====== LEFT SIDE ====== */
+        .left {
+            position: relative;
+            z-index: 10;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 64px;
+            color: #fff;
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            top: 48px;
+            left: 64px;
+        }
+
+        .logo img {
+            height: 56px;
+            width: auto;
+        }
+
+        /* Headline */
+        .headline {
+            font-size: clamp(36px, 5vw, 58px);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -1px;
+            margin-bottom: 4px;
+        }
+
+        /* Accent line — green gradient from bottom merging to white */
+        .headline-accent {
+            font-size: clamp(36px, 5vw, 58px);
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            background: linear-gradient(to top, #2E7D32 0%, #4CAF50 40%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Description */
+        .description {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.75);
+            max-width: 540px;
+            margin-bottom: 36px;
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 40px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.75);
+            margin-top: 4px;
+        }
+
+        /* ====== RIGHT SIDE ====== */
+        .right {
+            position: relative;
+            z-index: 10;
+            width: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 48px;
+            flex-shrink: 0;
+        }
+
+        /* ====== CARD ====== */
+        .card {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 44px 36px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.25),
+                0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .card-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.3px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #6b7280;
+            margin-bottom: 8px;
+            margin-left: 2px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 18px;
+            background: #f3f4f6;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: #111827;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .form-input:focus {
+            border-color: var(--color-primary, #0a1628);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(10, 22, 40, 0.06);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--color-primary, #0a1628);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+            box-shadow: 0 8px 24px rgba(10, 22, 40, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .card-helper {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        /* Code entry */
+        .code-sent-to {
+            text-align: center;
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .code-sent-to strong {
+            color: #111827;
+        }
+
+        .code-input {
+            text-align: center;
+            letter-spacing: 0.4em;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Back link */
+        .back-link {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 16px;
+            padding: 8px;
+            background: none;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #111827;
+        }
+
+        /* Request access */
+        .request-info {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        /* Confirmation */
+        .confirmation-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .confirmation-text {
+            font-size: 15px;
+            color: #4b5563;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .confirmation-email {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            text-align: center;
+        }
+
+        /* ====== FOOTER ====== */
+        .page-footer {
+            position: absolute;
+            bottom: 28px;
+            left: 64px;
+            z-index: 10;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 1024px) {
+            .left {
+                padding: 48px;
+            }
+
+            .right {
+                width: 440px;
+                padding: 36px;
+            }
+
+            .card {
+                padding: 36px 28px;
+            }
+
+            .page-footer {
+                left: 48px;
+            }
+
+            .stats {
+                gap: 28px;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .page-inner {
+                flex-direction: column;
+                min-height: 100vh;
+            }
+
+            .left {
+                padding: 100px 32px 32px;
+                justify-content: center;
+                flex: none;
+            }
+
+            .logo {
+                top: 28px;
+                left: 32px;
+            }
+
+            .headline,
+            .headline-accent {
+                font-size: 32px;
+            }
+
+            .description {
+                font-size: 13px;
+                margin-bottom: 24px;
+            }
+
+            .stats {
+                gap: 24px;
+                margin-bottom: 8px;
+            }
+
+            .stat-number {
+                font-size: 22px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+
+            .right {
+                width: 100%;
+                padding: 0 24px 32px;
+                justify-content: center;
+            }
+
+            .card {
+                max-width: 440px;
+            }
+
+            .page-footer {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left {
+                padding: 90px 24px 24px;
+            }
+
+            .logo {
+                top: 24px;
+                left: 24px;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+
+            .headline,
+            .headline-accent {
+                font-size: 28px;
+            }
+
+            .description {
+                display: none;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .stat-number {
+                font-size: 20px;
+            }
+
+            .right {
+                padding: 0 16px 24px;
+            }
+
+            .card {
+                padding: 32px 24px;
+                border-radius: 16px;
+            }
+
+            .card-title {
+                font-size: 20px;
+            }
+
+            .form-input {
+                padding: 14px 16px;
+            }
+
+            .submit-btn {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- Background -->
+        <div class="bg-image">
+            <img id="bgImage" src="" alt="">
+            <div class="bg-overlay-left"></div>
+            <div class="bg-overlay-tb"></div>
+        </div>
+
+        <div class="page-inner">
+
+            <!-- Left -->
+            <div class="left">
+                <div class="logo">
+                    <img id="logoImage" src="" alt="Logo">
+                </div>
+                <h1 class="headline" id="headline"></h1>
+                <div class="headline-accent" id="headlineAccent"></div>
+                <p class="description" id="description"></p>
+                <div class="stats" id="statsContainer"></div>
+            </div>
+
+            <!-- Right -->
+            <div class="right">
+                <div class="card">
+
+                    <!-- State 1: Email Entry -->
+                    <div id="stateEmail">
+                        <div class="card-header">
+                            <p class="card-eyebrow" id="cardEyebrow"></p>
+                            <h2 class="card-title" id="cardTitle"></h2>
+                        </div>
+
+                        <form onsubmit="handleEmailSubmit(event)">
+                            <div class="form-group">
+                                <label class="form-label" id="emailLabel"></label>
+                                <input type="email" class="form-input" id="emailInput" placeholder="" required>
+                            </div>
+                            <button type="submit" class="submit-btn" id="submitBtn"></button>
+                        </form>
+
+                        <p class="card-helper" id="cardHelper"></p>
+                    </div>
+
+                    <!-- State 2: Request Access (shown when domain not whitelisted) -->
+                    <div id="stateRequest" style="display: none;">
+                        <div class="card-header">
+                            <p class="card-eyebrow">Access Required</p>
+                            <h2 class="card-title">Request Access</h2>
+                        </div>
+
+                        <p class="request-info">This portal is for authorized clients only. Fill out the form below and
+                            we'll review your request.</p>
+
+                        <form onsubmit="handleRequestSubmit(event)">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" id="requestName" placeholder="John Smith"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-input" id="requestEmail" placeholder="" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Organization</label>
+                                <input type="text" class="form-input" id="requestOrg" placeholder="HealthCorp Inc."
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Job Title</label>
+                                <input type="text" class="form-input" id="requestTitle" placeholder="Facility Manager"
+                                    required>
+                            </div>
+                            <button type="submit" class="submit-btn">Submit Request</button>
+                        </form>
+
+                        <button class="back-link" onclick="showState('email')">← Use a different email</button>
+                    </div>
+
+                    <!-- State 4: Request Sent Confirmation -->
+                    <div id="stateConfirmation" style="display: none;">
+                        <div class="card-header">
+                            <div class="confirmation-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2E7D32"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                    <polyline points="22 4 12 14.01 9 11.01" />
+                                </svg>
+                            </div>
+                            <h2 class="card-title">Request Sent</h2>
+                        </div>
+                        <p class="confirmation-text">Your access request has been submitted. Our team will review it and
+                            get back to you shortly.</p>
+                        <p class="confirmation-email" id="confirmationEmail"></p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="page-footer" id="pageFooter"></div>
+
+    </div>
+
+    <script src="js/authConfig.js"></script>
+    <script>
+        // ====== MSAL INSTANCE ======
+        let msalInstance = null;
+
+        // ====== STATE MANAGEMENT ======
+        function showState(state) {
+            document.getElementById('stateEmail').style.display = state === 'email' ? 'block' : 'none';
+            document.getElementById('stateRequest').style.display = state === 'request' ? 'block' : 'none';
+            document.getElementById('stateConfirmation').style.display = state === 'confirmation' ? 'block' : 'none';
+        }
+
+        // ====== EMAIL SUBMIT — TRIGGERS MSAL LOGIN ======
+        function handleEmailSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+
+            if (!email) return;
+
+            // Use MSAL redirect flow with login_hint (pre-fills email on Entra's page)
+            msalInstance.loginRedirect({
+                ...loginRequest,
+                loginHint: email,
+            }).catch(function (error) {
+                console.error('Login redirect error:', error);
+
+                // If the error is domain-related (user not allowed), show request access
+                if (error.errorCode === 'user_cancelled' ||
+                    error.errorMessage.includes('not found') ||
+                    error.errorMessage.includes('not allowed') ||
+                    error.errorMessage.includes('blocked')) {
+                    document.getElementById('requestEmail').value = email;
+                    showState('request');
+                }
+            });
+        }
+
+        // ====== HANDLE REDIRECT RESPONSE ======
+        // After Entra authenticates the user, they get redirected back here
+        function handleResponse(response) {
+            if (response !== null) {
+                // User successfully authenticated
+                const account = response.account;
+                console.log('Authenticated:', account.username);
+
+                // Store the account info
+                sessionStorage.setItem('portalUser', JSON.stringify({
+                    name: account.name,
+                    email: account.username,
+                    id: account.homeAccountId,
+                }));
+
+                // Redirect to portal home page
+                window.location.href = 'index.html';
+            } else {
+                // No response — user is on the login page (not returning from auth)
+                // Check if already signed in
+                const accounts = msalInstance.getAllAccounts();
+                if (accounts.length > 0) {
+                    // Already signed in — redirect to portal
+                    window.location.href = 'index.html';
+                }
+                // Otherwise, stay on login page
+            }
+        }
+
+        // ====== REQUEST ACCESS SUBMIT ======
+        function handleRequestSubmit(e) {
+            e.preventDefault();
+
+            const requestData = {
+                name: document.getElementById('requestName').value,
+                email: document.getElementById('requestEmail').value,
+                organization: document.getElementById('requestOrg').value,
+                jobTitle: document.getElementById('requestTitle').value,
+                timestamp: new Date().toISOString(),
+            };
+
+            // TODO: Send to Azure Function → Power Automate → Brendan gets Teams notification
+            // For now, log it and show confirmation
+            console.log('Access request submitted:', requestData);
+
+            document.getElementById('confirmationEmail').textContent = "We'll notify you at " + requestData.email;
+            showState('confirmation');
+        }
+
+        // ====== LOAD CONTENT ======
+        async function loadContent() {
+            try {
+                const [configRes, contentRes] = await Promise.all([
+                    fetch('../site-config.json'),
+                    fetch('../content/login.json')
+                ]);
+
+                const config = await configRes.json();
+                const content = await contentRes.json();
+
+                // Set CSS variables
+                var root = document.documentElement;
+                root.style.setProperty('--color-primary', config.colors.primary);
+                root.style.setProperty('--color-accent', config.colors.accent);
+
+                // Page title
+                document.title = config.shortName + ' — Sign In';
+
+                // Background image
+                document.getElementById('bgImage').src = content.backgroundImage;
+
+                // Logo
+                document.getElementById('logoImage').src = config.logo;
+
+                // Headline + accent line
+                document.getElementById('headline').innerHTML = content.headline.replace(/\n/g, '<br>');
+                document.getElementById('headlineAccent').textContent = content.headlineAccent;
+
+                // Description
+                document.getElementById('description').textContent = content.description;
+
+                // Stats
+                var statsContainer = document.getElementById('statsContainer');
+                content.stats.forEach(function (stat) {
+                    var div = document.createElement('div');
+                    div.innerHTML = '<div class="stat-number">' + stat.number + '</div><div class="stat-label">' + stat.label + '</div>';
+                    statsContainer.appendChild(div);
+                });
+
+                // Card content
+                document.getElementById('cardEyebrow').textContent = config.login.cardEyebrow;
+                document.getElementById('cardTitle').textContent = config.login.cardTitle;
+                document.getElementById('emailLabel').textContent = config.login.emailLabel;
+                document.getElementById('emailInput').placeholder = config.login.emailPlaceholder;
+                document.getElementById('submitBtn').textContent = config.login.buttonText;
+                document.getElementById('cardHelper').textContent = config.login.footerText;
+
+                // Footer
+                document.getElementById('pageFooter').textContent = config.footer.copyright;
+
+            } catch (error) {
+                console.error('Failed to load content:', error);
+            }
+        }
+
+        // ====== INITIALIZE ======
+        async function initialize() {
+            // Load page content
+            await loadContent();
+
+            // Initialize MSAL
+            msalInstance = new msal.PublicClientApplication(msalConfig);
+            await msalInstance.initialize();
+
+            // Handle redirect response (if coming back from Entra auth)
+            msalInstance.handleRedirectPromise()
+                .then(handleResponse)
+                .catch(function (error) {
+                    console.error('Redirect error:', error);
+
+                    // If auth failed due to domain restriction, show request access
+                    if (error.errorMessage && (
+                        error.errorMessage.includes('not found') ||
+                        error.errorMessage.includes('not allowed') ||
+                        error.errorMessage.includes('blocked') ||
+                        error.errorMessage.includes('invitation'))) {
+                        showState('request');
+                    }
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+
+</body>
+
+</html>

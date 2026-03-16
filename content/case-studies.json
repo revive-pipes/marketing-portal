@@ -1,0 +1,138 @@
+{
+  "pageHeader": {
+    "label": "Case Studies",
+    "title": "Proven Results in Critical Environments",
+    "description": "Explore our portfolio of successful rehabilitations across healthcare and commercial facilities."
+  },
+
+  "studies": [
+    {
+      "id": "cs-001",
+      "title": "Regional Medical Center Main Line Restoration",
+      "buildingType": "Level 1 Trauma Center",
+      "description": "Complete rehabilitation of a cast iron main sewer line running beneath the emergency department. Zero excavation required, zero downtime for critical care units.",
+      "image": "",
+      "stats": [
+        { "value": "120ft", "label": "Restored" },
+        { "value": "48hr", "label": "Turnaround" },
+        { "value": "50yr", "label": "Warranty" }
+      ],
+      "hasVideo": true,
+      "detailPage": "case-study-detail.html?id=cs-001",
+
+      "detail": {
+        "heroSummary": "A complete rehabilitation of a cast iron main sewer line running directly beneath the emergency department, executed with zero downtime.",
+        "heroImage": "",
+        "challenge": "A critical cast iron sewer line running directly beneath the hospital's emergency department was actively failing. Traditional excavation would have required tearing open the foundation, relocating critical care patients, and shutting down the trauma center for weeks. The facility needed a structural solution that guaranteed zero operational downtime and absolute infection control.",
+        "traditional": [
+          { "label": "Invasive demolition", "description": "Tear open ER foundation" },
+          { "label": "High friction", "description": "Reroute critical care patients" },
+          { "label": "Slow execution", "description": "3+ weeks of construction" },
+          { "label": "Clinical risk", "description": "Airborne pathogen exposure" }
+        ],
+        "solution": {
+          "heading": "Contained Trenchless Strategy",
+          "items": [
+            { "title": "Zero Demolition", "description": "No excavation beneath the emergency department." },
+            { "title": "Continuous Operation", "description": "Patients and staff remained fully undisturbed." },
+            { "title": "48-Hour Turnaround", "description": "Permanent rehabilitation completed in two days." },
+            { "title": "100% Sterile", "description": "Process remained fully contained and safe." }
+          ]
+        },
+        "videoFile": "",
+        "testimonial": {
+          "quote": "The ability to restore this critical line without shutting down the ER was remarkable for our operations.",
+          "author": "Director of Facilities",
+          "organization": "Regional Medical Center"
+        },
+        "ctaHeading": "Ready to eliminate downtime?",
+        "ctaDescription": "Discover how our trenchless solutions can protect your critical infrastructure without disruption.",
+        "ctaButton": "Discuss Your Project"
+      }
+    },
+    {
+      "id": "cs-002",
+      "title": "Veterans Affairs Hospital Vertical Stacks",
+      "buildingType": "Multi-story Healthcare",
+      "description": "Structural lining of vertical sanitary stacks spanning multiple floors. Completed in phases to ensure continuous operation of patient wards.",
+      "image": "",
+      "stats": [
+        { "value": "8", "label": "Stacks Lined" },
+        { "value": "Zero", "label": "Demolition" },
+        { "value": "Minimal", "label": "Disruption" }
+      ],
+      "hasVideo": false,
+      "detailPage": "case-study-detail.html?id=cs-002",
+
+      "detail": {
+        "heroSummary": "Structural lining of vertical sanitary stacks spanning multiple floors, completed in phases to maintain continuous patient ward operations.",
+        "heroImage": "",
+        "challenge": "Eight vertical sanitary stacks spanning ten floors were showing severe corrosion and joint failure. The hospital could not shut down entire floors for traditional pipe replacement. Patient wards needed to remain fully operational throughout the rehabilitation, and the work had to be phased to avoid disrupting sensitive medical equipment on adjacent floors.",
+        "traditional": [
+          { "label": "Floor closures", "description": "Shut down wards for weeks per stack" },
+          { "label": "Wall demolition", "description": "Open walls on every affected floor" },
+          { "label": "Patient relocation", "description": "Move patients between floors repeatedly" },
+          { "label": "Extended timeline", "description": "Months of phased construction" }
+        ],
+        "solution": {
+          "heading": "Phased Vertical Lining",
+          "items": [
+            { "title": "Floor-by-Floor Phasing", "description": "Each stack lined independently without affecting others." },
+            { "title": "No Wall Demolition", "description": "Access achieved through existing cleanouts and connections." },
+            { "title": "Ward Continuity", "description": "Patient wards remained open and operational throughout." },
+            { "title": "Structural Integrity", "description": "New liner restores full structural capacity for 50+ years." }
+          ]
+        },
+        "videoFile": "",
+        "testimonial": null,
+        "ctaHeading": "Multi-story challenge?",
+        "ctaDescription": "See how our phased approach keeps your facility running while we restore your infrastructure.",
+        "ctaButton": "Get in Touch"
+      }
+    },
+    {
+      "id": "cs-003",
+      "title": "University Research Lab Acid Waste System",
+      "buildingType": "Research Facility",
+      "description": "Specialized epoxy coating applied to deteriorating acid waste lines. The new lining provides superior chemical resistance for the research facility.",
+      "image": "",
+      "stats": [
+        { "value": "Superior", "label": "Chemical Resistance" },
+        { "value": "High", "label": "Temp Rated" },
+        { "value": "Custom", "label": "Formulation" }
+      ],
+      "hasVideo": true,
+      "detailPage": "case-study-detail.html?id=cs-003",
+
+      "detail": {
+        "heroSummary": "Specialized epoxy coating for deteriorating acid waste lines, delivering superior chemical resistance compared to the original glass piping.",
+        "heroImage": "",
+        "challenge": "The university's chemistry and biology research labs relied on aging glass acid waste lines that were cracking and leaking corrosive chemicals. Standard CIPP liners cannot withstand the chemical exposure. The facility needed a solution rated for high-temperature acid waste that could be installed without disrupting active research programs or requiring hazardous material evacuation.",
+        "traditional": [
+          { "label": "Full excavation", "description": "Dig up and replace all glass piping" },
+          { "label": "Lab shutdowns", "description": "Close research labs for installation" },
+          { "label": "Hazmat protocols", "description": "Extensive hazardous material handling" },
+          { "label": "Limited materials", "description": "Standard liners fail under acid exposure" }
+        ],
+        "solution": {
+          "heading": "Custom Epoxy Formulation",
+          "items": [
+            { "title": "Chemical Resistant", "description": "Custom resin formulated for acid and solvent exposure." },
+            { "title": "High-Temp Rated", "description": "Withstands elevated temperatures from lab waste streams." },
+            { "title": "Labs Stayed Open", "description": "Installation completed during off-hours with zero disruption." },
+            { "title": "Exceeds Original Spec", "description": "New lining outperforms the original glass piping." }
+          ]
+        },
+        "videoFile": "",
+        "testimonial": {
+          "quote": "The custom formulation exceeded our expectations. Our labs never missed a day of operation.",
+          "author": "Facilities Director",
+          "organization": "University Research Campus"
+        },
+        "ctaHeading": "Specialized pipe challenge?",
+        "ctaDescription": "We engineer custom solutions for unique pipe rehabilitation problems.",
+        "ctaButton": "Talk to Our Team"
+      }
+    }
+  ]
+}

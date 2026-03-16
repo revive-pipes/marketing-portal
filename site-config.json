@@ -1,0 +1,23 @@
+{
+    "companyName": "Revive Pipe Restoration Inc.",
+    "shortName": "REVIVE",
+    "tagline": "Pipe Restoration",
+    "logo": "../assets/logo.png",
+    "domain": "portal.revivepipes.com",
+    "colors": {
+        "primary": "#0a1628",
+        "accent": "#1565C0",
+        "accentGreen": "#2E7D32"
+    },
+    "login": {
+        "cardEyebrow": "Welcome Back",
+        "cardTitle": "Sign In",
+        "emailLabel": "Email",
+        "emailPlaceholder": "john@healthcorp.com",
+        "buttonText": "Continue",
+        "footerText": "You'll receive a one-time code to verify your identity"
+    },
+    "footer": {
+        "copyright": "© 2026 Revive Pipe Restoration Inc. All rights reserved."
+    }
+}

@@ -1,0 +1,355 @@
+/* ============================================
+   Case Studies Page Styles
+   ============================================ */
+
+/* ====== STUDY CARDS ====== */
+.cs-study {
+  padding: 64px 0;
+  border-top: 1px solid var(--gray-200);
+}
+
+.cs-study:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.cs-grid.reverse .cs-content { order: 1; }
+.cs-grid.reverse .cs-image { order: 2; }
+
+/* ====== IMAGE ====== */
+.cs-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--gray-100);
+  min-width: 0;
+  transition: box-shadow 0.3s ease;
+}
+
+.cs-image:hover {
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08);
+}
+
+.cs-image-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cs-image-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e8f1fb, #f0f0f0);
+}
+
+.cs-image-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--gray-700);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  max-width: calc(100% - 32px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ====== CONTENT ====== */
+.cs-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Meta — building type */
+.cs-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.cs-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: var(--gray-100);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cs-tag svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Title */
+.cs-title {
+  font-family: 'Libre Baskerville', Georgia, serif;
+  font-size: clamp(22px, 2.5vw, 30px);
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+/* Description */
+.cs-desc {
+  font-size: 16px;
+  color: var(--gray-500);
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+/* ====== STATS — METRIC CARDS ====== */
+.cs-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+  min-width: 0;
+}
+
+.cs-stat-card {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-100);
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  min-width: 0;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.cs-stat-card:hover {
+  border-color: var(--blue-light);
+  background: var(--blue-light);
+}
+
+.cs-stat-value {
+  font-size: clamp(22px, 2.2vw, 28px);
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  white-space: normal;
+}
+
+.cs-stat-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  white-space: normal;
+}
+
+/* ====== ACTION BUTTONS ====== */
+.cs-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cs-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  min-height: 44px;
+  border-radius: 100px;
+  background: var(--gray-900);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cs-btn-primary:hover {
+  background: var(--blue);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(21, 101, 192, 0.25);
+}
+
+.cs-btn-primary svg {
+  width: 18px;
+  height: 18px;
+}
+
+.cs-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 28px;
+  min-height: 44px;
+  border-radius: 100px;
+  background: transparent;
+  color: var(--gray-600);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cs-btn-ghost:hover {
+  background: var(--gray-100);
+}
+
+.cs-btn-ghost svg {
+  width: 20px;
+  height: 20px;
+  color: var(--blue);
+}
+
+/* ====== HOVER: TOUCH DEVICES ====== */
+@media (hover: none) {
+  .cs-image:hover { box-shadow: none; }
+
+  .cs-stat-card:hover {
+    background: var(--gray-50);
+    border-color: var(--gray-100);
+  }
+
+  .cs-btn-primary:hover {
+    transform: none;
+    box-shadow: none;
+    background: var(--gray-900);
+  }
+}
+
+/* ====== FOCUS STATES ====== */
+.cs-btn-primary:focus-visible,
+.cs-btn-ghost:focus-visible {
+  outline: 3px solid rgba(21, 101, 192, 0.35);
+  outline-offset: 3px;
+  border-radius: 100px;
+}
+
+/* ====== EMPTY / ERROR STATES ====== */
+.cs-empty,
+.cs-error {
+  text-align: center;
+  padding: 80px 20px;
+  font-size: 16px;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+.cs-error {
+  color: #C62828;
+  background: #FFEBEE;
+  border-radius: var(--radius);
+  padding: 40px 20px;
+}
+
+/* ====== RESPONSIVE ====== */
+
+/* Tablet landscape */
+@media (max-width: 1280px) {
+  .cs-grid { gap: 48px; }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .cs-grid { gap: 40px; }
+  .cs-study { padding: 48px 0; }
+  .cs-title { font-size: 24px; }
+}
+
+/* Large phone / small tablet */
+@media (max-width: 860px) {
+  .cs-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  /* On mobile, image always first, content second */
+  .cs-grid.reverse .cs-content { order: 2; }
+  .cs-grid.reverse .cs-image { order: 1; }
+
+  .cs-image {
+    aspect-ratio: 16 / 10;
+  }
+
+  .cs-study {
+    padding: 40px 0;
+  }
+}
+
+/* Phone */
+@media (max-width: 640px) {
+  .cs-study { padding: 32px 0; }
+
+  .cs-image {
+    border-radius: 14px;
+    aspect-ratio: 16 / 10;
+  }
+
+  .cs-title { font-size: 22px; }
+  .cs-desc { font-size: 15px; margin-bottom: 24px; }
+
+  .cs-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .cs-stat-card { padding: 16px 12px; border-radius: 12px; }
+  .cs-stat-value { font-size: 20px; }
+  .cs-stat-label { font-size: 10px; letter-spacing: 1px; }
+
+  .cs-image-label {
+    top: 12px;
+    left: 12px;
+    max-width: calc(100% - 24px);
+    font-size: 10px;
+    padding: 6px 12px;
+    border-radius: 7px;
+  }
+
+  .cs-actions { flex-direction: column; align-items: flex-start; }
+  .cs-btn-primary, .cs-btn-ghost { width: 100%; justify-content: center; }
+}
+
+/* Small phone */
+@media (max-width: 380px) {
+  .cs-stats { grid-template-columns: 1fr; gap: 8px; }
+  .cs-stat-card { padding: 14px 10px; }
+  .cs-stat-value { font-size: 18px; }
+  .cs-stat-label { font-size: 10px; letter-spacing: 0.8px; }
+  .cs-tag { font-size: 11px; padding: 6px 12px; }
+}

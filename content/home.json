@@ -1,0 +1,83 @@
+{
+  "hero": {
+    "label": "Trenchless Pipe Rehabilitation",
+    "title": "Restore Your Pipes. Without the Disruption.",
+    "subtitle": "CIPP lining and epoxy coating solutions for healthcare facilities and critical infrastructure — without excavation, without downtime.",
+    "backgroundImage": "../assets/sample2.png",
+    "stats": [
+      { "label": "50+ Year", "value": "Liner Lifespan" },
+      { "label": "Zero", "value": "Excavation" }
+    ]
+  },
+
+  "about": {
+    "heading": "We don't dig up your property, we don't disrupt your operations, we restore your pipes",
+    "headingMuted": "from the inside. Trenchless, minimal, effective.",
+    "image": "",
+    "stats": [
+      { "value": "50+", "label": "Year Liner Lifespan" },
+      { "value": "100%", "label": "Trenchless" },
+      { "value": "0", "label": "Excavation Required" },
+      { "value": "24/7", "label": "Emergency Response" }
+    ],
+    "description": "Revive Pipe Restoration specializes in trenchless pipe rehabilitation for healthcare facilities, commercial buildings, and critical infrastructure. Our CIPP lining and epoxy coating solutions restore aging, corroded, or failing pipe systems from the inside — without excavation, without demolition, and without disrupting your daily operations. We work in active hospitals, long-term care facilities, and research labs where downtime is not an option."
+  },
+
+  "services": {
+    "heading": "Pipe Rehabilitation in Every Critical Environment",
+    "description": "Trenchless solutions for hospitals, care facilities, and commercial buildings — restoring pipe systems without excavation or operational disruption.",
+    "image": "",
+    "imageTags": ["CIPP Lining", "Epoxy Coating", "Trenchless"],
+    "items": [
+      { "title": "CIPP Pipe Lining", "description": "Cured-in-place pipe lining creates a seamless, structural new pipe within your existing system. No digging, no demolition, and a 50+ year design life." },
+      { "title": "Epoxy Pipe Coating", "description": "Barrier coating applied to the interior of potable water and drainage pipes, sealing pinhole leaks and preventing further corrosion." },
+      { "title": "Pipe Cleaning & Descaling", "description": "High-speed mechanical descaling and hydro-jetting to remove decades of buildup, corrosion, and blockages before lining or coating." },
+      { "title": "CCTV Pipe Inspection", "description": "Remote camera inspection to assess pipe condition, identify failure points, and plan the most effective restoration approach." },
+      { "title": "Vertical Stack Restoration", "description": "Multi-floor vertical sanitary stack rehabilitation completed in phases to maintain continuous building operations." },
+      { "title": "Drain Line Repair", "description": "Targeted spot repairs and full drain line rehabilitation for lateral connections, roof drains, and storm water systems." },
+      { "title": "Emergency Services", "description": "24/7 emergency response for critical pipe failures in healthcare and commercial facilities where downtime is not an option." },
+      { "title": "Consultation & Assessment", "description": "On-site evaluation and detailed reporting to assess your pipe infrastructure and recommend the most cost-effective rehabilitation strategy." }
+    ]
+  },
+
+  "whyUs": {
+    "heading": "Built for Healthcare. Built for Zero Downtime.",
+    "description": "We understand that hospitals, care facilities, and research labs operate around the clock. Our approach is designed specifically for environments where disruption is not an option.",
+    "cards": [
+      { "icon": "clock", "title": "Zero Operational Downtime", "description": "Patient wards, ER departments, and labs stay fully operational throughout the entire restoration process." },
+      { "icon": "shield", "title": "Infection Control Compliant", "description": "Our trenchless methods eliminate airborne pathogen risks — fully contained, no open excavation in sterile environments." },
+      { "icon": "check", "title": "50+ Year Design Life", "description": "Our CIPP liners are engineered to ASTM standards with a structural design life exceeding 50 years." },
+      { "icon": "user", "title": "Dedicated Project Manager", "description": "One point of contact from assessment to completion. Clear communication, no surprises, no delays." },
+      { "icon": "monitor", "title": "Full Documentation & Reporting", "description": "Pre and post CCTV inspection footage, cure logs, and certification delivered for your facility records." },
+      { "icon": "message", "title": "24/7 Emergency Response", "description": "Critical pipe failure doesn't wait for business hours. Neither do we. Round-the-clock availability for urgent situations." }
+    ],
+    "beforeAfter": [
+      { "before": "../assets/before-1.png", "after": "../assets/after-1.png" },
+      { "before": "../assets/before-2.png", "after": "../assets/after-2.png" },
+      { "before": "../assets/before-3.png", "after": "../assets/after-3.png" }
+    ]
+  },
+
+  "projects": {
+    "heading": "Discover Our Successful Pipe Restoration Projects.",
+    "description": "Explore real-world case studies from hospitals, care facilities, and commercial buildings where we restored critical infrastructure without disruption.",
+    "featured": {
+      "id": "cs-001",
+      "image": "",
+      "type": "Level 1 Trauma Center",
+      "title": "Regional Medical Center Main Line Restoration",
+      "description": "Complete rehabilitation beneath the emergency department. Zero excavation, zero downtime."
+    },
+    "items": [
+      { "id": "cs-002", "image": "", "type": "Multi-story Healthcare", "title": "Veterans Affairs Hospital Vertical Stacks" },
+      { "id": "cs-003", "image": "", "type": "Research Facility", "title": "University Research Lab Acid Waste System" },
+      { "id": "cs-004", "image": "", "type": "Long-term Care", "title": "Seniors Residence Drainage Overhaul" }
+    ]
+  },
+
+  "testimonials": [
+    { "quote": "The ability to restore this critical line without shutting down the ER was remarkable. It saved us millions in potential disruption costs.", "author": "James Mitchell", "role": "Director of Facilities, Regional Medical Center" },
+    { "quote": "Our patient wards never missed a day of operation. The phased approach meant we could continue care without compromise.", "author": "Sarah Chen", "role": "VP of Operations, Veterans Affairs Hospital" },
+    { "quote": "The custom formulation exceeded our expectations for chemical resistance. Our labs stayed fully operational throughout the entire project.", "author": "Dr. Robert Alvarez", "role": "Facilities Director, University Research Campus" }
+  ]
+}

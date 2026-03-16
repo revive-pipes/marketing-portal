@@ -1,0 +1,106 @@
+{
+  "pageHeader": {
+    "label": "Video Library",
+    "title": "Learn How Pipe Restoration Works",
+    "description": "Explore our collection of educational content, technical demonstrations, and detailed project walkthroughs."
+  },
+
+  "featured": [
+    {
+      "id": "feat-001",
+      "title": "Trenchless Pipe Lining",
+      "description": "A complete walkthrough of the CIPP pipe lining process from initial inspection through final cure and quality assurance.",
+      "icon": "wrench",
+      "thumbnail": "",
+      "videoFile": ""
+    },
+    {
+      "id": "feat-002",
+      "title": "Epoxy Coating Process",
+      "description": "See how we prepare, clean, and apply structural epoxy coatings to deteriorating pipe systems.",
+      "icon": "settings",
+      "thumbnail": "",
+      "videoFile": ""
+    },
+    {
+      "id": "feat-003",
+      "title": "Post-Restoration Inspection",
+      "description": "Understanding the quality assurance and CCTV inspection process after every restoration project.",
+      "icon": "search",
+      "thumbnail": "",
+      "videoFile": ""
+    }
+  ],
+
+  "categories": [
+    "All",
+    "Process",
+    "Before & After",
+    "Cleaning",
+    "Explained",
+    "FAQ"
+  ],
+
+  "library": [
+    {
+      "id": "vid-001",
+      "title": "Placeholder Video Title",
+      "description": "Short placeholder description of what this video covers.",
+      "category": "Process",
+      "duration": "2:30",
+      "thumbnail": "",
+      "videoFile": "",
+      "tagColor": "#1565C0"
+    },
+    {
+      "id": "vid-002",
+      "title": "Placeholder Video Title",
+      "description": "Short placeholder description of what this video covers.",
+      "category": "Before & After",
+      "duration": "1:45",
+      "thumbnail": "",
+      "videoFile": "",
+      "tagColor": "#2E7D32"
+    },
+    {
+      "id": "vid-003",
+      "title": "Placeholder Video Title",
+      "description": "Short placeholder description of what this video covers.",
+      "category": "Explained",
+      "duration": "3:15",
+      "thumbnail": "",
+      "videoFile": "",
+      "tagColor": "#1565C0"
+    },
+    {
+      "id": "vid-004",
+      "title": "Placeholder Video Title",
+      "description": "Short placeholder description of what this video covers.",
+      "category": "Cleaning",
+      "duration": "4:00",
+      "thumbnail": "",
+      "videoFile": "",
+      "tagColor": "#374151"
+    },
+    {
+      "id": "vid-005",
+      "title": "Placeholder Video Title",
+      "description": "Short placeholder description of what this video covers.",
+      "category": "FAQ",
+      "duration": "2:10",
+      "thumbnail": "",
+      "videoFile": "",
+      "tagColor": "#E65100"
+    },
+    {
+      "id": "vid-006",
+      "title": "Placeholder Video Title",
+      "description": "Short placeholder description of what this video covers.",
+      "category": "Process",
+      "duration": "1:55",
+      "thumbnail": "",
+      "videoFile": "",
+      "tagColor": "#1565C0"
+    }
+  ]
+}

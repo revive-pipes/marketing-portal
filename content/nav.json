@@ -1,0 +1,13 @@
+{
+  "logo": "../assets/logo.png",
+  "links": [
+    { "label": "Home", "href": "index.html" },
+    { "label": "Videos", "href": "videos.html" },
+    { "label": "Case Studies", "href": "case-studies.html" },
+    { "label": "Resources", "href": "resources.html" }
+  ],
+  "ctaButton": {
+    "label": "Invite a Colleague",
+    "href": "#invite"
+  }
+}

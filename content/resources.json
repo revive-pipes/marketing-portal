@@ -1,0 +1,108 @@
+{
+  "pageHeader": {
+    "label": "Resources",
+    "title": "The Library",
+    "description": "Technical documentation, compliance certificates, and reference materials for our rehabilitation systems."
+  },
+
+  "featured": [
+    {
+      "id": "doc-feat-001",
+      "title": "Infection Control Risk Assessment Guidelines",
+      "description": "Protocols for maintaining sterile environments during installations in active healthcare facilities.",
+      "badge": "Updated",
+      "action": "download",
+      "fileType": "PDF",
+      "file": ""
+    },
+    {
+      "id": "doc-feat-002",
+      "title": "EPA & OSHA Material Safety Data Sheets",
+      "description": "Comprehensive safety data for all resins and epoxies used in our rehabilitation processes.",
+      "badge": "",
+      "action": "download",
+      "fileType": "PDF",
+      "file": ""
+    },
+    {
+      "id": "doc-feat-003",
+      "title": "Joint Commission Readiness Checklist",
+      "description": "Pre-audit documentation for plumbing infrastructure compliance with current standards.",
+      "badge": "New",
+      "action": "read",
+      "fileType": "PDF",
+      "file": ""
+    }
+  ],
+
+  "categories": [
+    { "label": "All", "color": "" },
+    { "label": "CIPP Lining", "color": "#1565C0" },
+    { "label": "Epoxy Coating", "color": "#2E7D32" },
+    { "label": "Engineering", "color": "#E65100" },
+    { "label": "Case Studies", "color": "#6A1B9A" }
+  ],
+
+  "library": [
+    {
+      "id": "doc-001",
+      "title": "Structural CIPP Design Parameters",
+      "description": "ASTM F1216 compliance guide for structural pipe rehabilitation",
+      "category": "CIPP Lining",
+      "categoryColor": "#1565C0",
+      "action": "download",
+      "fileType": "PDF",
+      "file": ""
+    },
+    {
+      "id": "doc-002",
+      "title": "Potable Water Epoxy Specifications",
+      "description": "NSF/ANSI 61 certification details for safe drinking water systems",
+      "category": "Epoxy Coating",
+      "categoryColor": "#2E7D32",
+      "action": "download",
+      "fileType": "PDF",
+      "file": ""
+    },
+    {
+      "id": "doc-003",
+      "title": "Flow Rate Calculation Matrix",
+      "description": "Post-lining capacity estimates and engineering calculations",
+      "category": "Engineering",
+      "categoryColor": "#E65100",
+      "action": "download",
+      "fileType": "XLS",
+      "file": ""
+    },
+    {
+      "id": "doc-004",
+      "title": "Cure Time vs Temperature Chart",
+      "description": "Installation planning guide for various environmental conditions",
+      "category": "CIPP Lining",
+      "categoryColor": "#1565C0",
+      "action": "download",
+      "fileType": "PDF",
+      "file": ""
+    },
+    {
+      "id": "doc-005",
+      "title": "Hospital Case Studies Compilation",
+      "description": "A collection of our most successful healthcare project reports",
+      "category": "Case Studies",
+      "categoryColor": "#6A1B9A",
+      "action": "read",
+      "fileType": "PDF",
+      "file": ""
+    },
+    {
+      "id": "doc-006",
+      "title": "Pre-Installation Site Assessment Form",
+      "description": "Standard checklist for evaluating project site conditions",
+      "category": "Engineering",
+      "categoryColor": "#E65100",
+      "action": "download",
+      "fileType": "PDF",
+      "file": ""
+    }
+  ]
+}
