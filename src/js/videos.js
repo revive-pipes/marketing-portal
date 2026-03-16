@@ -5,7 +5,7 @@
  * <div id="library-tabs">, <div id="library-grid"> on the page.
  */
 (function () {
-  var VIDEOS_URL = '../content/videos.json';
+  var VIDEOS_URL = 'content/videos.json';
 
   // Controlled SVG strings — not user data, safe for innerHTML
   var ICONS = {

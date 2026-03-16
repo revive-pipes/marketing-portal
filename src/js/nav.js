@@ -5,7 +5,7 @@
  * Place <div id="nav-container"></div> on any page.
  */
 (function () {
-  var NAV_CONFIG_URL = "../content/nav.json";
+  var NAV_CONFIG_URL = "content/nav.json";
   var HOME_PAGE = "index.html";
   var MENU_ID = "mobileMenu";
   var HAMBURGER_ID = "navHamburgerButton";

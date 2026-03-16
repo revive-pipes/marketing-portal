@@ -16,7 +16,7 @@
 
   async function init() {
     try {
-      var res = await fetch('../content/home.json', { credentials: 'same-origin' });
+      var res = await fetch('content/home.json', { credentials: 'same-origin' });
       if (!res.ok) throw new Error('Failed to load: ' + res.status);
       var data = await res.json();
 

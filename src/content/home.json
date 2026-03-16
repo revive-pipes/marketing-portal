@@ -3,7 +3,7 @@
     "label": "Trenchless Pipe Rehabilitation",
     "title": "Restore Your Pipes. Without the Disruption.",
     "subtitle": "CIPP lining and epoxy coating solutions for healthcare facilities and critical infrastructure — without excavation, without downtime.",
-    "backgroundImage": "../assets/sample2.png",
+    "backgroundImage": "assets/sample2.png",
     "stats": [
       { "label": "50+ Year", "value": "Liner Lifespan" },
       { "label": "Zero", "value": "Excavation" }
@@ -52,9 +52,9 @@
       { "icon": "message", "title": "24/7 Emergency Response", "description": "Critical pipe failure doesn't wait for business hours. Neither do we. Round-the-clock availability for urgent situations." }
     ],
     "beforeAfter": [
-      { "before": "../assets/before-1.png", "after": "../assets/after-1.png" },
-      { "before": "../assets/before-2.png", "after": "../assets/after-2.png" },
-      { "before": "../assets/before-3.png", "after": "../assets/after-3.png" }
+      { "before": "assets/before-1.png", "after": "assets/after-1.png" },
+      { "before": "assets/before-2.png", "after": "assets/after-2.png" },
+      { "before": "assets/before-3.png", "after": "assets/after-3.png" }
     ]
   },
 

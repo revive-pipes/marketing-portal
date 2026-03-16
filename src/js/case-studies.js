@@ -5,7 +5,7 @@
 (function () {
   'use strict';
 
-  var CS_URL = '../content/case-studies.json';
+  var CS_URL = 'content/case-studies.json';
 
   // Controlled SVG strings — not user data, safe for innerHTML within aria-hidden wrappers
   var ICON_BUILDING = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 21h18M3 7v1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7m0 1a3 3 0 0 0 6 0V7H3l2-4h14l2 4M5 21V10.87M19 21V10.87"/></svg>';
