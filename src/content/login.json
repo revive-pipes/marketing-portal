@@ -1,20 +1,19 @@
 {
-    "headline": "No Dig. No Demolition.",
-    "headlineAccent": "Revive Your Pipes.",
-    "description": "Our focus is on providing cost-effective, minimally disruptive pipe rehabilitation solutions to commercial and industrial clients. Our services avoid excavation and demolition of expensive landscaping and interior finishes, resulting in permanent repairs to your facility's sewer and pressure pipe systems.",
-    "backgroundImage": "assets/login-bg-image.jpg",
-    "stats": [
-        {
-            "number": "50+",
-            "label": "Year Liner Lifespan"
-        },
-        {
-            "number": "0",
-            "label": "Excavation Required"
-        },
-        {
-            "number": "100%",
-            "label": "Trenchless"
-        }
-    ]
+  "headline": "No Dig. No Demolition.",
+  "headlineAccent": "Revive Your Pipes.",
+  "description": "Our focus is on providing cost-effective, minimally disruptive pipe rehabilitation solutions to commercial and industrial clients. Our services avoid excavation and demolition of expensive landscaping and interior finishes, resulting in permanent repairs to your facility's sewer and pressure pipe systems.",
+  "backgroundImage": "assets/login-bg-image.jpg",
+  "stats": [
+    { "number": "50+", "label": "Year Liner Lifespan" },
+    { "number": "0", "label": "Excavation Required" },
+    { "number": "100%", "label": "Trenchless" }
+  ],
+  "card": {
+    "eyebrow": "Client Portal",
+    "title": "Sign In",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "you@organization.com",
+    "buttonText": "Continue",
+    "footerText": "Access is by invitation only"
+  }
 }
