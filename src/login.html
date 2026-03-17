@@ -528,7 +528,8 @@
     if (typeof msalInstance !== 'undefined' && msalInstance && typeof loginRequest !== 'undefined') {
       msalInstance.loginRedirect({
         scopes: loginRequest.scopes || ['openid', 'profile'],
-        loginHint: email
+        loginHint: email,
+        extraQueryParameters: { login_hint: email }
       }).catch(function (error) {
         if (error.errorCode === 'user_not_found' ||
             error.errorCode === 'access_denied' ||
