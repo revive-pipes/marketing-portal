@@ -1,6 +1,10 @@
 {
-  "name": "healthcare-marketing-portal-api",
+  "name": "marketing-portal-api",
   "version": "1.0.0",
   "description": "API for Revive Pipes Marketing Portal - handles access requests",
-  "private": true
+  "private": true,
+  "main": "src/index.js",
+  "dependencies": {
+    "@azure/functions": "^4.5.0"
+  }
 }
