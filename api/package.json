@@ -1,0 +1,6 @@
+{
+  "name": "healthcare-marketing-portal-api",
+  "version": "1.0.0",
+  "description": "API for Revive Pipes Marketing Portal - handles access requests",
+  "private": true
+}
