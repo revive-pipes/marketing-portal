@@ -421,6 +421,10 @@
               <label class="login-form-label">Job Title</label>
               <input type="text" class="login-form-input" id="requestTitle" placeholder="Facility Manager" required>
             </div>
+            <div class="login-form-group">
+              <label class="login-form-label">Phone</label>
+              <input type="tel" class="login-form-input" id="requestPhone" placeholder="403-555-1234" required>
+            </div>
             <button type="submit" class="login-submit-btn">Submit Request</button>
           </form>
           <button class="login-back-link" id="backToEmail">← Use a different email</button>
@@ -544,18 +548,42 @@
     }
   }
 
-  function handleRequestSubmit(e) {
+  async function handleRequestSubmit(e) {
     e.preventDefault();
-    var requestData = {
-      name: document.getElementById('requestName').value,
-      email: document.getElementById('requestEmail').value,
-      organization: document.getElementById('requestOrg').value,
-      jobTitle: document.getElementById('requestTitle').value,
-      timestamp: new Date().toISOString()
-    };
+    var btn = document.getElementById('requestSubmitBtn');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
 
-    document.getElementById('confirmationEmail').textContent = "We'll notify you at " + requestData.email;
-    showState('confirmation');
+    try {
+      var res = await fetch('/api/accessRequest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('requestName').value,
+          email: document.getElementById('requestEmail').value,
+          organization: document.getElementById('requestOrg').value,
+          jobTitle: document.getElementById('requestTitle').value,
+          phone: document.getElementById('requestPhone').value,
+          type: 'access_request',
+          invitedBy: ''
+        })
+      });
+
+      var data = await res.json();
+
+      if (data.success) {
+        document.getElementById('confirmationEmail').textContent = "We'll notify you at " + document.getElementById('requestEmail').value;
+        showState('confirmation');
+      } else {
+        btn.textContent = 'Submit Request';
+        btn.disabled = false;
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      btn.textContent = 'Submit Request';
+      btn.disabled = false;
+      alert('Something went wrong. Please try again.');
+    }
   }
 
   async function init() {
