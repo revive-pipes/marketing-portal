@@ -539,14 +539,14 @@
     var email = document.getElementById('emailInput').value;
     if (!email) return;
 
-   /** // Check domain before triggering MSAL
+   // Check domain before triggering MSAL
     if (!isAllowedDomain(email)) {
       // Domain not allowed - show Request Access form
       document.getElementById('requestEmail').value = email;
       showState('request');
       return;
     }
-**/
+
     // Domain is allowed - proceed with MSAL login
     if (typeof msalInstance !== 'undefined' && msalInstance && typeof loginRequest !== 'undefined') {
       msalInstance.loginRedirect({
