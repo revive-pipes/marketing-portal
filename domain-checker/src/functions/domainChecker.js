@@ -14,39 +14,78 @@ app.http('domainChecker', {
     try {
       const body = await request.json();
 
-      context.log('Domain checker called:', JSON.stringify(body).substring(0, 500));
+      // Log the full payload for debugging
+      context.log('=== FULL PAYLOAD START ===');
+      context.log(JSON.stringify(body, null, 2));
+      context.log('=== FULL PAYLOAD END ===');
 
-      // Extract email from Entra's request payload
-      // Entra sends the user's identities in the request
       let email = null;
 
-      if (body.data && body.data.authenticationContext && body.data.authenticationContext.user) {
-        // Try to get email from user object
-        const user = body.data.authenticationContext.user;
-        if (user.mail) {
-          email = user.mail;
-        } else if (user.userPrincipalName) {
-          email = user.userPrincipalName;
-        }
-      }
-
-      // Also check userSignUpInfo for self-service sign-up flows
-      if (!email && body.data && body.data.userSignUpInfo) {
+      // Path 1: Check userSignUpInfo.identities
+      if (body.data && body.data.userSignUpInfo && body.data.userSignUpInfo.identities) {
         const identities = body.data.userSignUpInfo.identities;
-        if (identities && identities.length > 0) {
-          for (const identity of identities) {
-            if (identity.signInType === 'emailAddress' && identity.issuerAssignedId) {
-              email = identity.issuerAssignedId;
-              break;
-            }
+        for (const identity of identities) {
+          if (identity.signInType === 'emailAddress' && identity.issuerAssignedId) {
+            email = identity.issuerAssignedId;
+            context.log('Found email in identities:', email);
+            break;
+          }
+          // Also check for email type
+          if (identity.signInType === 'email' && identity.issuerAssignedId) {
+            email = identity.issuerAssignedId;
+            context.log('Found email in identities (email type):', email);
+            break;
           }
         }
       }
 
+      // Path 2: Check authenticationContext.user
+      if (!email && body.data && body.data.authenticationContext && body.data.authenticationContext.user) {
+        const user = body.data.authenticationContext.user;
+        if (user.mail) {
+          email = user.mail;
+          context.log('Found email in authenticationContext.user.mail:', email);
+        } else if (user.userPrincipalName) {
+          email = user.userPrincipalName;
+          context.log('Found email in authenticationContext.user.userPrincipalName:', email);
+        }
+      }
+
+      // Path 3: Check userSignUpInfo.attributes for email
+      if (!email && body.data && body.data.userSignUpInfo && body.data.userSignUpInfo.attributes) {
+        const attrs = body.data.userSignUpInfo.attributes;
+        if (attrs.email && attrs.email.value) {
+          email = attrs.email.value;
+          context.log('Found email in attributes.email:', email);
+        } else if (attrs.emailAddress && attrs.emailAddress.value) {
+          email = attrs.emailAddress.value;
+          context.log('Found email in attributes.emailAddress:', email);
+        }
+      }
+
+      // Path 4: Check top-level data fields
+      if (!email && body.data) {
+        if (body.data.email) {
+          email = body.data.email;
+          context.log('Found email in data.email:', email);
+        }
+        if (!email && body.data.userPrincipalName) {
+          email = body.data.userPrincipalName;
+          context.log('Found email in data.userPrincipalName:', email);
+        }
+      }
+
       if (!email) {
-        context.log('No email found in request payload');
-        // If we can't find the email, allow them through
-        // (the front-end should have already caught this)
+        context.log('WARNING: No email found in any known path');
+        context.log('Available data keys:', body.data ? Object.keys(body.data) : 'no data');
+        if (body.data && body.data.userSignUpInfo) {
+          context.log('userSignUpInfo keys:', Object.keys(body.data.userSignUpInfo));
+          if (body.data.userSignUpInfo.identities) {
+            context.log('identities:', JSON.stringify(body.data.userSignUpInfo.identities));
+          }
+        }
+        
+        // If we can't find the email, continue (fail open)
         return {
           status: 200,
           jsonBody: {
@@ -54,7 +93,7 @@ app.http('domainChecker', {
               "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
               actions: [
                 {
-                  "@odata.type": "microsoft.graph.attributeCollectionStart.continue"
+                  "@odata.type": "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
                 }
               ]
             }
@@ -72,7 +111,6 @@ app.http('domainChecker', {
       context.log(`Checking domain: ${domain} against allowed: ${allowedDomains.join(', ')}`);
 
       if (allowedDomains.includes(domain)) {
-        // Domain is allowed - continue sign-up
         context.log(`Domain ${domain} is ALLOWED`);
         return {
           status: 200,
@@ -81,14 +119,13 @@ app.http('domainChecker', {
               "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
               actions: [
                 {
-                  "@odata.type": "microsoft.graph.attributeCollectionStart.continue"
+                  "@odata.type": "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
                 }
               ]
             }
           }
         };
       } else {
-        // Domain is blocked - show block page
         context.log(`Domain ${domain} is BLOCKED`);
         return {
           status: 200,
@@ -108,7 +145,6 @@ app.http('domainChecker', {
 
     } catch (error) {
       context.error('Domain checker error:', error.message);
-      // On error, allow through (fail open) - front-end is the first check
       return {
         status: 200,
         jsonBody: {
@@ -116,7 +152,7 @@ app.http('domainChecker', {
             "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
             actions: [
               {
-                "@odata.type": "microsoft.graph.attributeCollectionStart.continue"
+                "@odata.type": "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
               }
             ]
           }
