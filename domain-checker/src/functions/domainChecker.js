@@ -6,6 +6,9 @@ const { app } = require('@azure/functions');
  * Called by Entra External ID before showing the attribute collection page.
  * Checks the user's email domain against the allowed domains list.
  * Returns Continue for allowed domains, ShowBlockPage for blocked domains.
+ * 
+ * SECURITY: Fails closed - if email cannot be found or an error occurs,
+ * the user is blocked from signing up.
  */
 app.http('domainChecker', {
   methods: ['POST'],
@@ -14,78 +17,24 @@ app.http('domainChecker', {
     try {
       const body = await request.json();
 
-      // Log the full payload for debugging
-      context.log('=== FULL PAYLOAD START ===');
-      context.log(JSON.stringify(body, null, 2));
-      context.log('=== FULL PAYLOAD END ===');
-
       let email = null;
 
-      // Path 1: Check userSignUpInfo.identities
+      // Extract email from userSignUpInfo.identities
+      // Entra sends signInType as "federated" with issuer "mail" for email OTP
       if (body.data && body.data.userSignUpInfo && body.data.userSignUpInfo.identities) {
         const identities = body.data.userSignUpInfo.identities;
         for (const identity of identities) {
-          if (identity.signInType === 'emailAddress' && identity.issuerAssignedId) {
+          if (identity.issuerAssignedId && identity.issuerAssignedId.includes('@')) {
             email = identity.issuerAssignedId;
-            context.log('Found email in identities:', email);
-            break;
-          }
-          // Also check for email type
-          if (identity.signInType === 'email' && identity.issuerAssignedId) {
-            email = identity.issuerAssignedId;
-            context.log('Found email in identities (email type):', email);
+            context.log('Found email in identities:', email, 'signInType:', identity.signInType);
             break;
           }
         }
       }
 
-      // Path 2: Check authenticationContext.user
-      if (!email && body.data && body.data.authenticationContext && body.data.authenticationContext.user) {
-        const user = body.data.authenticationContext.user;
-        if (user.mail) {
-          email = user.mail;
-          context.log('Found email in authenticationContext.user.mail:', email);
-        } else if (user.userPrincipalName) {
-          email = user.userPrincipalName;
-          context.log('Found email in authenticationContext.user.userPrincipalName:', email);
-        }
-      }
-
-      // Path 3: Check userSignUpInfo.attributes for email
-      if (!email && body.data && body.data.userSignUpInfo && body.data.userSignUpInfo.attributes) {
-        const attrs = body.data.userSignUpInfo.attributes;
-        if (attrs.email && attrs.email.value) {
-          email = attrs.email.value;
-          context.log('Found email in attributes.email:', email);
-        } else if (attrs.emailAddress && attrs.emailAddress.value) {
-          email = attrs.emailAddress.value;
-          context.log('Found email in attributes.emailAddress:', email);
-        }
-      }
-
-      // Path 4: Check top-level data fields
-      if (!email && body.data) {
-        if (body.data.email) {
-          email = body.data.email;
-          context.log('Found email in data.email:', email);
-        }
-        if (!email && body.data.userPrincipalName) {
-          email = body.data.userPrincipalName;
-          context.log('Found email in data.userPrincipalName:', email);
-        }
-      }
-
+      // If email not found, block (fail closed)
       if (!email) {
-        context.log('WARNING: No email found in any known path');
-        context.log('Available data keys:', body.data ? Object.keys(body.data) : 'no data');
-        if (body.data && body.data.userSignUpInfo) {
-          context.log('userSignUpInfo keys:', Object.keys(body.data.userSignUpInfo));
-          if (body.data.userSignUpInfo.identities) {
-            context.log('identities:', JSON.stringify(body.data.userSignUpInfo.identities));
-          }
-        }
-        
-        // If we can't find the email, continue (fail open)
+        context.log('WARNING: No email found - blocking sign-up');
         return {
           status: 200,
           jsonBody: {
@@ -93,7 +42,9 @@ app.http('domainChecker', {
               "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
               actions: [
                 {
-                  "@odata.type": "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
+                  "@odata.type": "microsoft.graph.attributeCollectionStart.showBlockPage",
+                  title: "Access not enabled",
+                  message: "We couldn't validate your email domain. Please go back and use the Request Access form."
                 }
               ]
             }
@@ -135,6 +86,7 @@ app.http('domainChecker', {
               actions: [
                 {
                   "@odata.type": "microsoft.graph.attributeCollectionStart.showBlockPage",
+                  title: "Access not enabled",
                   message: "Your organization hasn't been enabled for portal access yet. Please go back and use the Request Access form to request an invitation."
                 }
               ]
@@ -145,6 +97,7 @@ app.http('domainChecker', {
 
     } catch (error) {
       context.error('Domain checker error:', error.message);
+      // Fail closed - block on error
       return {
         status: 200,
         jsonBody: {
@@ -152,7 +105,9 @@ app.http('domainChecker', {
             "@odata.type": "microsoft.graph.onAttributeCollectionStartResponseData",
             actions: [
               {
-                "@odata.type": "microsoft.graph.attributeCollectionStart.continueWithDefaultBehavior"
+                "@odata.type": "microsoft.graph.attributeCollectionStart.showBlockPage",
+                title: "Access not enabled",
+                message: "We couldn't process your sign-up request. Please go back and use the Request Access form."
               }
             ]
           }
