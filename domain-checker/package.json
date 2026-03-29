@@ -1,0 +1,10 @@
+{
+  "name": "domain-checker",
+  "version": "1.0.0",
+  "description": "Custom Authentication Extension - domain allowlist checker for Entra External ID",
+  "private": true,
+  "main": "src/index.js",
+  "dependencies": {
+    "@azure/functions": "^4.5.0"
+  }
+}
