@@ -392,7 +392,7 @@
               <label class="login-form-label" for="emailInput" id="emailLabel"></label>
               <input type="email" class="login-form-input" id="emailInput" placeholder="" required>
             </div>
-            <button type="submit" class="login-submit-btn" id="submitBtn"></button>
+            <button type="submit" class="login-submit-btn" id="requestSubmitBtn">Submit Request</button>
           </form>
           <p class="login-card-helper" id="cardHelper"></p>
         </div>
@@ -525,13 +525,22 @@
   }
 
   // Allowed domains - users from these domains go to Entra sign-in
+  // Allowed domains and individual emails
   var allowedDomains = ['revivepipes.com'];
+  var allowedEmails = [];
 
-  function isAllowedDomain(email) {
+  function isAllowed(email) {
+    email = email.toLowerCase().trim();
     var domain = email.split('@')[1];
     if (!domain) return false;
-    domain = domain.toLowerCase().trim();
-    return allowedDomains.indexOf(domain) !== -1;
+
+    // Check if individual email is approved
+    if (allowedEmails.indexOf(email) !== -1) return true;
+
+    // Check if entire domain is approved
+    if (allowedDomains.indexOf(domain) !== -1) return true;
+
+    return false;
 }
 
   function handleEmailSubmit(e) {
@@ -540,7 +549,7 @@
     if (!email) return;
 
    // Check domain before triggering MSAL
-    if (!isAllowedDomain(email)) {
+    if (!isAllowed(email)) {
       // Domain not allowed - show Request Access form
       document.getElementById('requestEmail').value = email;
       showState('request');

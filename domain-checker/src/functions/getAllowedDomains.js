@@ -1,9 +1,9 @@
 const { app } = require('@azure/functions');
 
 /**
- * Returns the current list of allowed domains.
- * Called by the front-end login page to check domains before triggering MSAL.
- * This ensures the front-end and back-end use the same allowlist.
+ * Returns the current allowed domains and individual emails.
+ * Called by the front-end login page to check before triggering MSAL.
+ * Single source of truth - both front-end and Entra extension use the same data.
  */
 app.http('getAllowedDomains', {
   methods: ['GET'],
@@ -14,6 +14,11 @@ app.http('getAllowedDomains', {
       .map(d => d.toLowerCase().trim())
       .filter(d => d.length > 0);
 
+    const allowedEmails = (process.env.ALLOWED_EMAILS || '')
+      .split(',')
+      .map(e => e.toLowerCase().trim())
+      .filter(e => e.length > 0);
+
     return {
       status: 200,
       headers: {
@@ -21,7 +26,8 @@ app.http('getAllowedDomains', {
         'Access-Control-Allow-Methods': 'GET'
       },
       jsonBody: {
-        domains: allowedDomains
+        domains: allowedDomains,
+        emails: allowedEmails
       }
     };
   }
