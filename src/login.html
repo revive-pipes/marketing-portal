@@ -392,7 +392,7 @@
               <label class="login-form-label" for="emailInput" id="emailLabel"></label>
               <input type="email" class="login-form-input" id="emailInput" placeholder="" required>
             </div>
-            <button type="submit" class="login-submit-btn" id="requestSubmitBtn">Submit Request</button>
+            <button type="submit" class="login-submit-btn" id="submitBtn"></button>
           </form>
           <p class="login-card-helper" id="cardHelper"></p>
         </div>
@@ -425,7 +425,7 @@
               <label class="login-form-label">Phone</label>
               <input type="tel" class="login-form-input" id="requestPhone" placeholder="403-555-1234" required>
             </div>
-            <button type="submit" class="login-submit-btn">Submit Request</button>
+            <button type="submit" class="login-submit-btn" id="requestSubmitBtn">Submit Request</button>
           </form>
           <button class="login-back-link" id="backToEmail">← Use a different email</button>
         </div>
@@ -524,39 +524,47 @@
     }
   }
 
-  // Allowed domains - users from these domains go to Entra sign-in
-  // Allowed domains and individual emails
-  var allowedDomains = ['revivepipes.com'];
-  var allowedEmails = [];
+  // Check if email is allowed via API (single source of truth)
+  async function isAllowed(email) {
+    try {
+      var res = await fetch('https://func-client-portal-domainchecker-fxdtdffcaybsbvad.canadacentral-01.azurewebsites.net/api/checkAllowedAccess', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      });
+      var data = await res.json();
+      return data.allowed === true;
+    } catch (err) {
+      // If API is down, fall back to hardcoded baseline
+      var domain = email.split('@')[1];
+      if (!domain) return false;
+      return ['revivepipes.com'].indexOf(domain.toLowerCase()) !== -1;
+    }
+  }
 
-  function isAllowed(email) {
-    email = email.toLowerCase().trim();
-    var domain = email.split('@')[1];
-    if (!domain) return false;
-
-    // Check if individual email is approved
-    if (allowedEmails.indexOf(email) !== -1) return true;
-
-    // Check if entire domain is approved
-    if (allowedDomains.indexOf(domain) !== -1) return true;
-
-    return false;
-}
-
-  function handleEmailSubmit(e) {
+  async function handleEmailSubmit(e) {
     e.preventDefault();
     var email = document.getElementById('emailInput').value;
     if (!email) return;
 
-   // Check domain before triggering MSAL
-    if (!isAllowed(email)) {
-      // Domain not allowed - show Request Access form
+    // Show loading state on button
+    var btn = document.getElementById('submitBtn');
+    var originalText = btn.textContent;
+    btn.textContent = 'Checking...';
+    btn.disabled = true;
+
+    var allowed = await isAllowed(email);
+
+    btn.textContent = originalText;
+    btn.disabled = false;
+
+    if (!allowed) {
       document.getElementById('requestEmail').value = email;
       showState('request');
       return;
     }
 
-    // Domain is allowed - proceed with MSAL login
+    // Email is allowed - proceed with MSAL login
     if (typeof msalInstance !== 'undefined' && msalInstance && typeof loginRequest !== 'undefined') {
       msalInstance.loginRedirect({
         scopes: loginRequest.scopes || ['openid', 'profile'],
